@@ -1,0 +1,23 @@
+<p-messages class="col-12" severity="warn" *ngIf="languages.modify">
+  <ng-template pTemplate>
+    <span class="font-bold mr-2">Atencion:</span>
+    <span>Se ha modificado alguna clave, si carga de nuevo el fichero puede que sobrescriba los cambios realizados</span>
+  </ng-template>
+</p-messages>
+<p-fileUpload
+  mode="advanced"
+  chooseLabel="Cargar ficheros"
+  accept=".json"
+  [auto]="true"
+  [multiple]="true"
+  [files]="files"
+  (onSelect)="uploadFiles($event)"
+  (onRemove)="removeFiles($event)">
+  <ng-template pTemplate="toolbar">
+    <div>{{ files.length }} elemento/s selecionado/s</div>
+  </ng-template>
+</p-fileUpload>
+<div class="col-12 flex justify-content-center">
+  <button pButton pRipple type="button" label="Aceptar" class="m-2" (click)="confirm()"></button>
+  <button pButton pRipple type="button" label="Cancelar" class="p-button-danger m-2" (click)="cancel()"></button>
+</div>

@@ -1,0 +1,75 @@
+<div class="grid">
+    
+    <p-confirmDialog 
+        header="Confirmar" 
+        icon="pi pi-exclamation-triangle" 
+        acceptLabel="Aceptar" 
+        rejectLabel="Cancelar">
+    </p-confirmDialog>
+
+    <div class="col-12 flex justify-content-end">
+        <button pButton pRipple type="button" icon="pi pi-cloud-upload" class="p-button-rounded p-button-outlined m-2" pTooltip="Subir ficheros" tooltipPosition="left" (click)="showUploadFiles();"></button>
+        <button pButton pRipple type="button" icon="pi pi-flag" class="p-button-rounded p-button-outlined m-2" pTooltip="Añadir idioma" tooltipPosition="left" [disabled]="true"></button>
+        <button pButton pRipple type="button" icon="pi pi-language" class="p-button-rounded p-button-outlined m-2" pTooltip="Añadir clave" tooltipPosition="left" (click)="showKey()" [disabled]="!languages.codes || languages.codes.length === 0"></button>
+        <button pButton pRipple type="button" icon="pi pi-cloud-download" class="p-button-rounded p-button-outlined m-2" pTooltip="Descargar ficheros" tooltipPosition="left" (click)="downloadFile();" [disabled]="!languages.keys || languages.keys.size === 0"></button>
+    </div>
+    <div class="col-12">
+        <p-messages class="col-12" severity="warn" *ngIf="!languages || !languages.keys || languages.keys.size === 0">
+            <ng-template pTemplate>
+                No hay ningun fichero cargado o los ficheros no tienen ninguna clave. 
+                <a class="font-bold cursor-pointer underline m-2" (click)="showUploadFiles();">Subir fichero</a>
+                <span> o </span>
+                <a class="font-bold underline m-2">Añadir Idioma</a>
+            </ng-template>
+        </p-messages>
+    </div>
+    <div class="col-12" *ngIf="keyErrors && keyErrors.length > 0">
+        <p-messages severity="error" *ngFor="let error of keyErrors">
+            <ng-template pTemplate>
+                <span >
+                    <span class="font-bold mr-2 cursor-pointer underline" (click)="goToRow(error.key)">{{error.key}}</span>
+                    <span class="">{{error.msg}}</span>
+                </span>
+            </ng-template>
+        </p-messages>
+    </div>
+
+    <div class="col-12" *ngIf="languages && languages.keys && languages.keys.size > 0">
+        <p-table #keysTable [value]="keys" styleClass="p-datatable-striped p-datatable-gridline" >
+          <ng-template pTemplate="header">
+            <tr>
+                <th width="10%"></th>
+                <th>Clave</th>
+                <th *ngFor="let code of languages.codes">
+                    <span class="mr-2">{{code}}</span>
+                    <i class="font-bold underline text-blue-700 cursor-pointer pi pi-cloud-download" (click)="downloadFile(code);"></i>
+                </th>
+            </tr>
+
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr [ngClass]="{'errorKey': getKey(item, 'error')}">
+                <td>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-raised p-button-text mr-2" (click)="showKey(item)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-raised p-button-text mr-2" (click)="removeKey(item)"></button>
+                </td>
+                <td class="font-bold">
+
+                    <span class="mr-2">{{item}}</span>
+                    <i id="row_{{item.replaceAll('.', '__')}}"class="mr-2 pi pi-exclamation-triangle" *ngIf="getKey(item, 'error')"></i>
+                    </td>
+                <td *ngFor="let code of languages.codes">
+                    <span class="mr-2 font-bold">({{code}})</span>
+                    <span>{{getKey(item, code)}}</span>
+                </td> 
+            </tr>
+          </ng-template>
+      </p-table>
+    </div>
+</div>
+
+
+
+
+
+
