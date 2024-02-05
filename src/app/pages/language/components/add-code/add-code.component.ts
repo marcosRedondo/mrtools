@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 //PRIMENG
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
 import { PickListModule } from 'primeng/picklist';
 
-import { CODES } from './../../codes.constants';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+// CONSTANTS
+import { CODES } from '@language/codes.constants';
 
 @Component({
   selector: 'app-add-code',

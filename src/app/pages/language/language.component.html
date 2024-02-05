@@ -24,14 +24,16 @@
         </p-messages>
     </div>
     <div class="col-12" *ngIf="keyErrors && keyErrors.length > 0">
-        <p-messages severity="error" *ngFor="let error of keyErrors.splice(0,5)">
-            <ng-template pTemplate>
-                <span >
-                    <span class="font-bold mr-2 cursor-pointer underline" (click)="goToRow(error.key)">{{error.key}}</span>
-                    <span class="">{{error.msg}}</span>
-                </span>
-            </ng-template>
-        </p-messages>
+        <div *ngFor="let error of keyErrors; let i = index">
+            <p-messages severity="error" *ngIf="i < 3 ">
+                <ng-template pTemplate>
+                    <span >
+                        <span class="font-bold mr-2 cursor-pointer underline" (click)="goToRow(error.key)">{{error.key}}</span>
+                        <span class="">{{error.msg}}</span>
+                    </span>
+                </ng-template>
+            </p-messages>
+        </div>
     </div>
 
     <div class="col-12"  *ngIf="languages?.codes">

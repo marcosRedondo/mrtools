@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'languages',
-    loadComponent: () => import('./pages/language/language.component'),
+    loadComponent: () => import('@language/language.component'),
   },
   { path: '', redirectTo: 'languages', pathMatch: 'full' },
 ];

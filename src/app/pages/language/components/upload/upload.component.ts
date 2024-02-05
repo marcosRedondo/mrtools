@@ -5,7 +5,9 @@ import { CommonModule } from '@angular/common';
 // PRIMENG
 import { FileUploadModule } from 'primeng/fileupload';
 import { DynamicDialogModule, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Language } from '../../language.interface';
+
+// INTERFACES
+import { Language } from '@language/language.interface';
 
 @Component({
   selector: 'app-upload',

@@ -14,12 +14,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
 // COMPONENTS
-import { UploadComponent } from './components/upload/upload.component';
-import { EditComponent } from './components/edit/edit.component';
-import { AddCodeComponent } from './components/add-code/add-code.component';
+import { UploadComponent } from '@language/components/upload/upload.component';
+import { EditComponent } from '@language/components/edit/edit.component';
+import { AddCodeComponent } from '@language/components/add-code/add-code.component';
 
 // INTERFACES
-import { Language } from './language.interface';
+import { Language } from '@language/language.interface';
 
 @Component({
   selector: 'app-language',

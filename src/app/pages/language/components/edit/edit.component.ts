@@ -16,8 +16,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
-// APP
-import { Language } from '../../language.interface';
+// INTERFACES
+import { Language } from '@language/language.interface';
 
 @Component({
   selector: 'app-edit',
