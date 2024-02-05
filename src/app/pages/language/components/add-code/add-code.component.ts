@@ -35,17 +35,27 @@ export class AddCodeComponent implements OnInit {
     private dynamicDialogConfig: DynamicDialogConfig,
     private dynamicDialogRef: DynamicDialogRef
   ) {}
+
+  /**
+   * Initialize component
+   */
   ngOnInit(): void {
     this.listCodes = CODES;
     this.selectedCodes = Object.assign([], this.dynamicDialogConfig?.data?.languages?.codes) || [];
   }
 
+  /**
+   * Save new codes
+   */
   confirm() {
     const languages = this.dynamicDialogConfig?.data?.languages;
     languages.codes = Object.assign([], this.selectedCodes);
     this.dynamicDialogRef.close(languages);
   }
 
+  /**
+   * Cancel Selection Codes
+   */
   cancel() {
     this.dynamicDialogRef.close(this.dynamicDialogConfig?.data?.languages);
   }

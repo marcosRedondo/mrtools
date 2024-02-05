@@ -48,6 +48,9 @@ export class EditComponent implements OnInit {
     this.formData = this.formBuilder.group({});
   }
 
+  /**
+   * Initialize component
+   */
   ngOnInit(): void {
     const data = this.dynamicDialogConfig?.data;
     this.languages = data?.languages || <Language>{};
@@ -81,6 +84,9 @@ export class EditComponent implements OnInit {
     });
   }
 
+  /**
+   * Save translation
+   */
   confirm(): void {
     if (this.languages?.keys?.has(this.key)) {
       const key = this.languages.keys.get(this.key);
@@ -105,6 +111,10 @@ export class EditComponent implements OnInit {
     this.languages.modify = true;
     this.dynamicDialogRef.close(this.languages);
   }
+
+  /**
+   * Cancel Translation
+   */
   cancel(): void {
     this.dynamicDialogRef.close(this.languages);
   }
