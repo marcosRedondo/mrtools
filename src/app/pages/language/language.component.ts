@@ -16,6 +16,7 @@ import { ConfirmationService } from 'primeng/api';
 // COMPONENTS
 import { UploadComponent } from './components/upload/upload.component';
 import { EditComponent } from './components/edit/edit.component';
+import { AddCodeComponent } from './components/add-code/add-code.component';
 
 // INTERFACES
 import { Language } from './language.interface';
@@ -115,7 +116,7 @@ export default class LanguageComponent {
 
   updateView(e: Language): void {
     this.languages = e ? e : this.languages;
-    this.keys = Array.from(this.languages?.keys.keys());
+    this.keys = this.languages?.keys?.size > 0 ? Array.from(this.languages?.keys?.keys()) : [];
     this.keys.sort((a, b) => a.localeCompare(b));
     this.checkErrors();
   }
@@ -151,6 +152,20 @@ export default class LanguageComponent {
       a.download = cod + '.json';
       a.click();
       URL.revokeObjectURL(objectUrl);
+    });
+  }
+
+  addLang(): void {
+    const diag = this.dialogService.open(AddCodeComponent, {
+      header: 'Seleccionar Idiomas',
+      width: '90%',
+      closable: true,
+      data: {
+        languages: this.languages,
+      },
+    });
+    diag.onClose.subscribe(e => {
+      this.updateView(e);
     });
   }
 }

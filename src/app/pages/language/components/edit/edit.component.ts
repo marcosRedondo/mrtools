@@ -64,7 +64,7 @@ export class EditComponent implements OnInit {
     );
     this.languages.codes.forEach(code => {
       let val = '';
-      const key = this.languages.keys.get(this.key);
+      const key = this.languages?.keys?.get(this.key);
       if (key && key.has(code)) {
         val = key.get(code) || '';
       }
@@ -82,7 +82,7 @@ export class EditComponent implements OnInit {
   }
 
   confirm(): void {
-    if (this.languages.keys.has(this.key)) {
+    if (this.languages?.keys?.has(this.key)) {
       const key = this.languages.keys.get(this.key);
       this.languages.codes.forEach(code => {
         const val = this.formData.value[code];
@@ -97,6 +97,9 @@ export class EditComponent implements OnInit {
           keyCode.set(code, val);
         }
       });
+      if (!this.languages.keys) {
+        this.languages.keys = new Map();
+      }
       this.languages.keys.set(key, keyCode);
     }
     this.languages.modify = true;

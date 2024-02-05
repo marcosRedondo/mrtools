@@ -9,22 +9,22 @@
 
     <div class="col-12 flex justify-content-end">
         <button pButton pRipple type="button" icon="pi pi-cloud-upload" class="p-button-rounded p-button-outlined m-2" pTooltip="Subir ficheros" tooltipPosition="left" (click)="showUploadFiles();"></button>
-        <button pButton pRipple type="button" icon="pi pi-flag" class="p-button-rounded p-button-outlined m-2" pTooltip="Añadir idioma" tooltipPosition="left" [disabled]="true"></button>
+        <button pButton pRipple type="button" icon="pi pi-flag" class="p-button-rounded p-button-outlined m-2" pTooltip="Seleccionar idiomas" (click)="addLang();" tooltipPosition="left"></button>
         <button pButton pRipple type="button" icon="pi pi-language" class="p-button-rounded p-button-outlined m-2" pTooltip="Añadir clave" tooltipPosition="left" (click)="showKey()" [disabled]="!languages.codes || languages.codes.length === 0"></button>
         <button pButton pRipple type="button" icon="pi pi-cloud-download" class="p-button-rounded p-button-outlined m-2" pTooltip="Descargar ficheros" tooltipPosition="left" (click)="downloadFile();" [disabled]="!languages.keys || languages.keys.size === 0"></button>
     </div>
     <div class="col-12">
-        <p-messages class="col-12" severity="warn" *ngIf="!languages || !languages.keys || languages.keys.size === 0">
+        <p-messages class="col-12" severity="warn" *ngIf="!languages?.codes">
             <ng-template pTemplate>
                 No hay ningun fichero cargado o los ficheros no tienen ninguna clave. 
                 <a class="font-bold cursor-pointer underline m-2" (click)="showUploadFiles();">Subir fichero</a>
                 <span> o </span>
-                <a class="font-bold underline m-2">Añadir Idioma</a>
+                <a class="font-bold cursor-pointer underline m-2" (click)="addLang();">Seleccionar idiomas</a>
             </ng-template>
         </p-messages>
     </div>
     <div class="col-12" *ngIf="keyErrors && keyErrors.length > 0">
-        <p-messages severity="error" *ngFor="let error of keyErrors">
+        <p-messages severity="error" *ngFor="let error of keyErrors.splice(0,5)">
             <ng-template pTemplate>
                 <span >
                     <span class="font-bold mr-2 cursor-pointer underline" (click)="goToRow(error.key)">{{error.key}}</span>
@@ -34,7 +34,7 @@
         </p-messages>
     </div>
 
-    <div class="col-12" *ngIf="languages && languages.keys && languages.keys.size > 0">
+    <div class="col-12"  *ngIf="languages?.codes">
         <p-table #keysTable [value]="keys" styleClass="p-datatable-striped p-datatable-gridline" >
           <ng-template pTemplate="header">
             <tr>
