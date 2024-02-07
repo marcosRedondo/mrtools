@@ -1,0 +1,14 @@
+<p-pickList [source]="listCodes" [target]="selectedCodes" sourceHeader="Disponibles" targetHeader="Seleccionados" [dragdrop]="true" [responsive]="true" 
+    [sourceStyle]="{ height: '25rem' }" [targetStyle]="{ height: '25rem' }" breakpoint="1400px">
+    <ng-template let-code pTemplate="item">
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+            <div class="flex-1 flex flex-column gap-2">
+                <span class="font-bold">{{ code }}</span>
+            </div>
+        </div>
+    </ng-template>
+</p-pickList>
+<div class="col-12 flex justify-content-center">
+    <button pButton pRipple type="button" label="Aceptar" class="m-2" [disabled]="!selectedCodes || selectedCodes.length === 0"(click)="confirm()"></button>
+    <button pButton pRipple type="button" label="Cancelar" class="p-button-danger m-2" (click)="cancel()"></button>
+  </div>

@@ -16,8 +16,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
-// APP
-import { Language } from '../../language.interface';
+// INTERFACES
+import { Language } from '@language/language.interface';
 
 @Component({
   selector: 'app-edit',
@@ -48,6 +48,9 @@ export class EditComponent implements OnInit {
     this.formData = this.formBuilder.group({});
   }
 
+  /**
+   * Initialize component
+   */
   ngOnInit(): void {
     const data = this.dynamicDialogConfig?.data;
     this.languages = data?.languages || <Language>{};
@@ -64,7 +67,7 @@ export class EditComponent implements OnInit {
     );
     this.languages.codes.forEach(code => {
       let val = '';
-      const key = this.languages.keys.get(this.key);
+      const key = this.languages?.keys?.get(this.key);
       if (key && key.has(code)) {
         val = key.get(code) || '';
       }
@@ -81,8 +84,11 @@ export class EditComponent implements OnInit {
     });
   }
 
+  /**
+   * Save translation
+   */
   confirm(): void {
-    if (this.languages.keys.has(this.key)) {
+    if (this.languages?.keys?.has(this.key)) {
       const key = this.languages.keys.get(this.key);
       this.languages.codes.forEach(code => {
         const val = this.formData.value[code];
@@ -97,11 +103,18 @@ export class EditComponent implements OnInit {
           keyCode.set(code, val);
         }
       });
+      if (!this.languages.keys) {
+        this.languages.keys = new Map();
+      }
       this.languages.keys.set(key, keyCode);
     }
     this.languages.modify = true;
     this.dynamicDialogRef.close(this.languages);
   }
+
+  /**
+   * Cancel Translation
+   */
   cancel(): void {
     this.dynamicDialogRef.close(this.languages);
   }

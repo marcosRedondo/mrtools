@@ -5,7 +5,9 @@ import { CommonModule } from '@angular/common';
 // PRIMENG
 import { FileUploadModule } from 'primeng/fileupload';
 import { DynamicDialogModule, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Language } from '../../language.interface';
+
+// INTERFACES
+import { Language } from '@language/language.interface';
 
 @Component({
   selector: 'app-upload',
@@ -25,12 +27,19 @@ export class UploadComponent implements OnInit {
     private dynamicDialogRef: DynamicDialogRef
   ) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.languages = this.dynamicDialogConfig?.data || <Language>{};
     this.files = this.languages?.files || [];
     this.codes = this.languages?.codes || [];
   }
 
+  /**
+   * Upload files
+   * @param event event with files
+   */
   uploadFiles(event: any): void {
     this.files = event?.currentFiles || [];
     this.files.forEach((file: File) => {
@@ -38,19 +47,10 @@ export class UploadComponent implements OnInit {
     });
   }
 
-  removeFiles(event: any): void {
-    let code: string = event?.file.name;
-    code = code.toLocaleLowerCase();
-    code = code.replace('.json', '');
-    this.codes = this.codes.filter(item => item != code);
-    this.files = this.files.filter(item => item.name !== event?.file?.name);
-    this.keys.forEach(key => {
-      if (key.has(code)) {
-        key.delete(code);
-      }
-    });
-  }
-
+  /**
+   * Load files
+   * @param file data for load
+   */
   readFiles(file: File) {
     const fr = new FileReader();
     let lang: string = file?.name;
@@ -67,6 +67,28 @@ export class UploadComponent implements OnInit {
     fr.readAsText(file);
   }
 
+  /**
+   * Clean data on remove file
+   * @param event remove
+   */
+  removeFiles(event: any): void {
+    let code: string = event?.file.name;
+    code = code.toLocaleLowerCase();
+    code = code.replace('.json', '');
+    this.codes = this.codes.filter(item => item != code);
+    this.files = this.files.filter(item => item.name !== event?.file?.name);
+    this.keys.forEach(key => {
+      if (key.has(code)) {
+        key.delete(code);
+      }
+    });
+  }
+
+  /**
+   * map file for array
+   * @param file to map
+   * @param code language
+   */
   mapFileToArray(file: any, code: string) {
     Object.keys(file).forEach(key => {
       if (this.keys.has(key)) {
@@ -80,6 +102,9 @@ export class UploadComponent implements OnInit {
     });
   }
 
+  /**
+   * Confirm save files
+   */
   confirm(): void {
     this.languages.files = this.files;
     this.languages.codes = this.codes;
@@ -87,6 +112,9 @@ export class UploadComponent implements OnInit {
     this.dynamicDialogRef.close(this.languages);
   }
 
+  /**
+   * Cancel files load
+   */
   cancel(): void {
     this.dynamicDialogRef.close();
   }
