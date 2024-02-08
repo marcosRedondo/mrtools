@@ -1,3 +1,5 @@
 ## [1.0.1] - yyyy-mm-dd
-- Crear version escritorio
+- Actualizar version de angular
+- Añadir el changelog a visualizar
 - Realizar test de lenguages
+- Crear version escritorio
