@@ -4,10 +4,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@language/*": ["src/app/pages/language/*"],
-      "@packageJson": ["package.json"]
+      "@language/*": ["src/app/pages/language/*"]
     },
-    "resolveJsonModule": true,
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
