@@ -22,7 +22,6 @@ export class AppComponent {
     {
       label: 'About: ' + this.version,
       icon: 'pi pi-fw pi-info-circle',
-      disabled: true,
       routerLink: 'about',
     },
   ];

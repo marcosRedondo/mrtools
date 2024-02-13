@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "paths": {
       "@language/*": ["src/app/pages/language/*"],
-      "@packageJson": ["package.json"]
+      "@about/*": ["src/app/pages/about/*"],
+      "@packageJson": ["package.json"],
     },
     "resolveJsonModule": true,
     "outDir": "./dist/out-tsc",
